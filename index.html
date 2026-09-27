@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Food Rescue & Donation</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header>
+
+        <div class="logo">
+            🍱 Food Rescue
+        </div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#donate">Donate</a>
+            <a href="#food">Available Food</a>
+            <a href="#dashboard">Dashboard</a>
+        </nav>
+
+    </header>
+
+
+    <!-- ================= HOME ================= -->
+
+    <section id="home" class="hero">
+
+        <div>
+
+            <h1>
+                Save Food. Help People.
+            </h1>
+
+            <p>
+                Connecting surplus food with NGOs
+                through volunteers.
+            </p>
+
+            <button onclick="goToSection('donate')">
+                Donate Food
+            </button>
+
+            <button class="secondary"
+                onclick="goToSection('food')">
+                Find Food
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= ROLE SELECTION ================= -->
+
+    <section class="section">
+
+        <h2>Choose Your Role</h2>
+
+        <p class="section-text">
+            Select how you want to participate
+            in food rescue.
+        </p>
+
+        <div class="role-container">
+
+            <div class="role-card">
+
+                <div class="big-icon">🍴</div>
+
+                <h3>Food Donor</h3>
+
+                <p>
+                    Restaurants, hotels and households
+                    can donate surplus food.
+                </p>
+
+                <button onclick="selectRole('Donor')">
+                    Continue as Donor
+                </button>
+
+            </div>
+
+
+            <div class="role-card">
+
+                <div class="big-icon">🤝</div>
+
+                <h3>NGO</h3>
+
+                <p>
+                    NGOs can find and request
+                    available food.
+                </p>
+
+                <button onclick="selectRole('NGO')">
+                    Continue as NGO
+                </button>
+
+            </div>
+
+
+            <div class="role-card">
+
+                <div class="big-icon">🛵</div>
+
+                <h3>Volunteer</h3>
+
+                <p>
+                    Volunteers can pick up and
+                    deliver donated food.
+                </p>
+
+                <button onclick="selectRole('Volunteer')">
+                    Continue as Volunteer
+                </button>
+
+            </div>
+
+        </div>
+
+        <p id="selectedRole"></p>
+
+    </section>
+
+
+    <!-- ================= DONATE FOOD ================= -->
+
+    <section id="donate" class="section light">
+
+        <h2>🍱 Donate Surplus Food</h2>
+
+        <p class="section-text">
+            Enter the details of the food you want to donate.
+        </p>
+
+
+        <form id="donationForm">
+
+            <input
+                type="text"
+                id="foodName"
+                placeholder="Food Name"
+                required
+            >
+
+            <input
+                type="number"
+                id="quantity"
+                placeholder="Quantity (meals)"
+                min="1"
+                required
+            >
+
+            <select id="foodType" required>
+
+                <option value="">
+                    Select Food Type
+                </option>
+
+                <option>Cooked Food</option>
+
+                <option>Fruits</option>
+
+                <option>Vegetables</option>
+
+                <option>Bakery</option>
+
+                <option>Packaged Food</option>
+
+                <option>Other</option>
+
+            </select>
+
+
+            <input
+                type="text"
+                id="location"
+                placeholder="Pickup Location"
+                required
+            >
+
+
+            <label>
+                Food Safe Until
+            </label>
+
+            <input
+                type="datetime-local"
+                id="safeTime"
+                required
+            >
+
+
+            <button type="submit">
+                List Food for Donation
+            </button>
+
+        </form>
+
+
+        <p id="donationMessage"></p>
+
+    </section>
+
+
+    <!-- ================= AVAILABLE FOOD ================= -->
+
+    <section id="food" class="section">
+
+        <h2>🍛 Available Food</h2>
+
+        <p class="section-text">
+            NGOs can search and request available food.
+        </p>
+
+
+        <input
+            type="text"
+            id="searchFood"
+            class="search"
+            placeholder="🔎 Search food..."
+            onkeyup="searchFood()"
+        >
+
+
+        <div id="foodList">
+
+            <!-- Food cards will appear here -->
+
+        </div>
+
+
+        <p id="noFood" class="no-food">
+            No food donations available yet.
+        </p>
+
+    </section>
+
+
+    <!-- ================= TRACKING ================= -->
+
+    <section class="section light">
+
+        <h2>📦 Food Rescue Tracking</h2>
+
+        <p class="section-text">
+            Track the journey of a food donation.
+        </p>
+
+
+        <div class="tracking">
+
+            <div class="track active" id="track1">
+
+                <span>1</span>
+
+                <p>Donated</p>
+
+            </div>
+
+
+            <div class="line"></div>
+
+
+            <div class="track" id="track2">
+
+                <span>2</span>
+
+                <p>Requested</p>
+
+            </div>
+
+
+            <div class="line"></div>
+
+
+            <div class="track" id="track3">
+
+                <span>3</span>
+
+                <p>Picked Up</p>
+
+            </div>
+
+
+            <div class="line"></div>
+
+
+            <div class="track" id="track4">
+
+                <span>4</span>
+
+                <p>Delivered</p>
+
+            </div>
+
+        </div>
+
+
+        <p id="trackingMessage">
+            Waiting for a donation.
+        </p>
+
+    </section>
+
+
+    <!-- ================= DASHBOARD ================= -->
+
+    <section id="dashboard" class="section">
+
+        <h2>📊 Dashboard</h2>
+
+        <div class="stats">
+
+            <div class="stat">
+
+                <span>🍱</span>
+
+                <h3 id="totalDonations">
+                    0
+                </h3>
+
+                <p>
+                    Total Donations
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <span>🤝</span>
+
+                <h3 id="totalRequests">
+                    0
+                </h3>
+
+                <p>
+                    Food Requests
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <span>🛵</span>
+
+                <h3 id="totalDeliveries">
+                    0
+                </h3>
+
+                <p>
+                    Deliveries
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <span>🍽️</span>
+
+                <h3 id="totalMeals">
+                    0
+                </h3>
+
+                <p>
+                    Meals Rescued
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= VOLUNTEER ================= -->
+
+    <section class="section light">
+
+        <h2>🛵 Volunteer Tasks</h2>
+
+        <div id="volunteerList">
+
+            <p>
+                Requested food will appear here.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <h3>🍱 Food Rescue & Donation</h3>
+
+        <p>
+            Save Food • Help People • Reduce Waste
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
